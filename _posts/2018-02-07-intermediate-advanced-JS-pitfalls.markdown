@@ -4,7 +4,9 @@ title:  "Intermediate to advanced JS pitfalls (browser)"
 date:   2018-02-07 15:01:05 +0100
 categories: javascript
 ---
-Some (advanced in my opinion) pitfalls while using JS in the browser. I find the hoisting examples especially tricky and closures still get me from time to time. For the most part I have used ES5 (with the exception of `let`). Only dependency is JQuery (only to print the results).
+Some (advanced in my opinion) pitfalls while using JS in the browser. For the most part I have used ES5 (with the exception of `let`). Only dependency is JQuery (only to print the results).
+
+I would suggest to try to guess the outcome in the console before taking a look. I find the hoisting part for example especially tricky and closures still get me from time to time.
 
 ## Scope
 <script async src="//jsfiddle.net/spygi/cyrv6wzL/embed/js,result/"></script>
