@@ -12,8 +12,8 @@ Tech blog using Jekyll engine, published on Github pages.
 
 ## Setup
 ### Resources
-+ [Jekyll for Github pages](https://jekyllrb.com/docs/github-pages/)
-+ Vice versa: [Github pages for Jekyll](https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/)
++ The guide I followed: [Github pages for Jekyll](https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/)
++ And vice versa: [Jekyll for Github pages](https://jekyllrb.com/docs/github-pages/)
 + [Metadata exposed from Github gem](https://help.github.com/articles/repository-metadata-on-github-pages/#available-repository-metadata)
 
 ### Github pages
@@ -22,6 +22,8 @@ or per project (/docs folder in master or special "gh-pages" branch).
 This repo is using the last method with the "gh-pages" branch. To avoid confusion I deleted the master branch (locally and remotely). For convenience I set the gh-pages as the default upstream to push to.
 
 + [Serving through Github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#default-source-settings-for-repositories-without-the-username-naming-scheme) ![Github pages setup](images/readme/github-pages-setup.png "Github pages setup")
+
++ \_site is .gitignored.
 
 + Optional for PRs/when navigating to the Web UI of Github:
 ![Default branch setting on Github](images/readme/github-default-branch.png "Default branch setting on Github")
