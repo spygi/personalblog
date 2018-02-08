@@ -24,4 +24,5 @@ Notice that in the following examples we pass the variables as arguments compare
 <script async src="//jsfiddle.net/spygi/cv8zr0gm/embed/js,result/"></script>
 
 ## Callbacks and their context: closures
+Note that the order the callbacks print stuff out is random because.. well they are callbacks.
 <script async src="//jsfiddle.net/spygi/v6L5sLqo/embed/js,result/"></script>
