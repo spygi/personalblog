@@ -42,7 +42,7 @@ This accepts only FQDN (no path otherwise you will get a mail saying "The CNAME 
 ## Troubleshooting
 + Can I use DNS to point to a specific path? [No](https://stackoverflow.com/questions/9444055/using-dns-to-redirect-to-another-url-with-a-path)
 + Check your configuration with `dig` ![Dig command]({{ "/assets/dns/dig results.png" | absolute_url }})
-+ Latency in changes can be due to TTL (in case of existing records) or DNS propagation (in case of newly created records).
++ Latency in changes can be due to TTL (in case of existing records) or DNS propagation (in case of newly created records). Note that refreshing the browser (even bypassing the cache) does not invalidate the DNS cache. You can flush it in Chrome [like this](https://superuser.com/questions/203674/how-to-clear-flush-the-dns-cache-in-google-chrome) - or just open an Incognito window.
 
 ## Resources
 [1]: https://www.eurodns.com/blog/dns-alias-caa-records-for-domain-name
