@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "Learning CSS (3) - WIP 👩‍💻"
+date:   2018-03-02 15:01:05 +0100
+comments: true
+categories: front-end
+---
+Disclaimer: not everything is related to the 3rd edition of CSS  ![CSS3 logo]({{ "/assets/frontend/CSS3.png" | absolute_url }}){:height="100px"}
+
+## Positioning
+### Flex
+TODO
+### Grid
+TODO
+
+## Effects
+CSS transforms can include Transitions (in CSS and SVG) and CSS Animations. [From w3](https://www.w3.org/TR/css-transforms-1/)
+> Therefore it includes all applied CSS3 Transitions, CSS3 Animations or SVG Animations
+
+[When to use what?](https://stackoverflow.com/a/20590319/2259743) Use CSS transitions when there is only a start and end state. Use CSS animations if you need fine-grained control. Again from w3:  
+> Animations are similar to transitions in that they change the presentational value of CSS properties over time. The principal difference is that while transitions trigger implicitly when property values change, animations are explicitly executed when the animation properties are applied. Because of this, animations require explicit values for the properties being animated.
+
+Question: What about SVG animation.
+
+### Example of a CSS transition
+TODO
+
+### Example of a CSS animation
++ [Slider for 2 cards](https://codepen.io/spygi/pen/EQrGmE). Inspired by [css-tricks](https://css-tricks.com/slider-with-sliding-backgrounds/) (specifically the idea of "invisible" container) and (a looot) simpler than the [follow up](https://css-tricks.com/the-javascript-behind-touch-friendly-sliders/) I wanted to play with CSS animations (though a transition would be better suited here). The contributions are:
++ CSS only effect (no jquery, no magic numbers)
++ It snaps into place.
+But it works only with 2 cards as is (that's good for me now). Given some effort I think it could be done for more.
+
+
+## Z-index
+Z-index always confused me and it turns out I am not the only one.
+
+[The bible](https://philipwalton.com/articles/what-no-one-told-you-about-z-index/):
+> From back to forth
+1. The stacking context’s root element
+2. Positioned elements (and their children) with negative z-index values (higher values are stacked in front of lower values; elements with the same value are stacked according to appearance in the HTML)
+1. Non-positioned elements (ordered by appearance in the HTML)
+1. Positioned elements (and their children) with a z-index value of auto (ordered by appearance in the HTML)
+1. Positioned elements (and their children) with positive z-index values (higher values are stacked in front of lower values; elements with the same value are stacked according to appearance in the HTML)
+
+Note: non-positioned are items without a position property or set to static
+
+I like this because it considers a) opacity and b) also the order of appearance unlike [this very simple](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) and [this](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/Adding_z-index) from MDN. I would like some more details about new CSS3 properties like transitions etc.
+
+In MDN, stacking without z-index (1.) and the stacking context (4.) from [here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index) are good:
+>  Importantly, the z-index values of its child stacking contexts only have meaning in this parent. Stacking contexts are treated atomically as a single unit in the parent stacking context.  
+
+Question: Does auto == z-index set to 0?
+
+## SVG
+TODO
+
+## Canvas?
+TODO?
+
+## Box model
+
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://tech-spygi-me.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script id="dsq-count-scr" src="//tech-spygi-me.disqus.com/count.js" async></script>
+{% endif %}
