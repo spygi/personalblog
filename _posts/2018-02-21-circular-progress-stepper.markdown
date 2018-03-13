@@ -33,15 +33,25 @@ Limitations: the calculations get complicated for intermediate steps. Notice tha
 
 1. After implementing my solution I came across Lea’s conic gradient polyfill (again mentioned by Sarah Soueidan on her excellent [CSS vs SVG roundup](https://theblog.adobe.com/css-vs-svg-the-final-roundup/)). Here you need a normal element because we are using a polyfill.
 
+{% highlight scss %}
+// written in a super-verbose way
+@if $progress == nth($progress-steps, 9) {
+  background: linear-gradient($background-color 0%, rgba(nth($progress-colors, 5), 1) 0, rgba(nth($progress-colors, 4), 1) 50%, rgba(nth($progress-colors, 3), 1) 100%);
+} @else if $progress == nth($progress-steps, 8) {
+  background: linear-gradient($background-color 25%, rgba(nth($progress-colors, 5), 0.5) 25%, rgba(nth($progress-colors, 4), 1) 50%, rgba(nth($progress-colors, 3), 1) 100%);
+} @else if $progress == nth($progress-steps, 7) {
+  background: linear-gradient($background-color 50%, rgba(nth($progress-colors, 5), 0) 50%, rgba(nth($progress-colors, 4), 1) 50%, rgba(nth($progress-colors, 3), 1) 100%);
+} @else if $progress == nth($progress-steps, 6) {
+  background: linear-gradient($background-color 75%, rgba(nth($progress-colors, 5), 0) 75%, rgba(nth($progress-colors, 4), 0.5) 75%, rgba(nth($progress-colors, 3), 1) 100%);
+}
+{% endhighlight %}
+
 ## What I learned
 + SVG is a better tool for that :)
 + Saas: `percentage` function,  [interpolation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#interpolation_) and "-" sign need a space [before and after](https://stackoverflow.com/questions/8001879/subtraction-not-working-in-compass-scss)
 + Codepen: you can print out [Sass output in console](https://blog.codepen.io/2016/02/15/sass-debug-and-warn-output-to-the-console/) and you can save a pen in a Gist <3
-+ CSS: [Css transitions don't work with gradients](https://stackoverflow.com/questions/6542212/use-css3-transitions-with-gradient-backgrounds)
++ CSS: [Css transitions don't work with gradients](https://stackoverflow.com/questions/6542212/use-css3-transitions-with-gradient-backgrounds) (I used opacity instead)
 + Polyfill's and pseudoelements don't work together.
-
-## Alternatives
-+ [Stack gradients or radial gradients]()
 
 ## Moar Resources
 + https://css-tricks.com/examples/GradientBorder/
