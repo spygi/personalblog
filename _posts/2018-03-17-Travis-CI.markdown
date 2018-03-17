@@ -1,0 +1,45 @@
+---
+layout: post
+title:  "Travis integration with Github"
+date:   2018-03-17
+comments: true
+categories: devops
+---
+[Travis](https://travis-ci.com) is a CI/CD tool originally made for open source projects. Now there is also an offering for commercial/private repositories tool, travis-ci.com (versus org). I used Travis for this site (deployed on Github pages) and for my main site (deployed with Heroku).
+
+## On Github side
++ On the repo you want to publish, go to Settings -> Integrations & services and add a new Service: `username: spygi` (I guess this is of Travis?), token from [your Travis profile](https://travis-ci.org/profile/spygi), `domain: notify.travis-ci.org`. Test the service to check if it works.
++ Generate a [Github token](https://github.com/settings/tokens). You need only `repo` and `admin:repo_hook` rights I think.
+
+## On Travis side
++ On [your Travis profile](https://travis-ci.org/profile/spygi) flip the switch on for the repo in question.
+
+## Locally
++ Generate a `.travis.yml` file e.g. [the one](https://raw.githubusercontent.com/spygi/tech-blog/master/.travis.yml) used for this site.
++ `gem install travis`
++ Within the repo: `travis encrypt 'GIT_NAME="YOUR_USERNAME" GIT_EMAIL="YOUR_EMAIL" GH_TOKEN=YOUR_TOKEN'` and put it into the `.travis.yml`
++ Push and check status on  https://travis-ci.org/USERNAME/REPO.
+
+
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://tech-spygi-me.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script id="dsq-count-scr" src="//tech-spygi-me.disqus.com/count.js" async></script>
+{% endif %}
