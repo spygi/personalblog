@@ -5,7 +5,7 @@ date:   2018-04-19
 comments: true
 categories: front-end
 ---
-For my [personal site](https://spygi.me) I wanted to fetch data from Github API. Some context: the site is built using TravisCI and hosted in Heroku. No backend.
+For my [personal site](http://spygi.me) I wanted to fetch data from Github API. Some context: the site is built using TravisCI and hosted in Heroku. No backend.
 
 ## Github API
 Github has rate limiting of 60 requests per hour for unauthenticated requests or 5000 for authenticated ones. I could get away with unauthenticated requests maybe and good caching (how many people are gonna visit my site anyway?) but at least while developing I hit that limit often.
@@ -17,7 +17,7 @@ Github has rate limiting of 60 requests per hour for unauthenticated requests or
 $.get({
     url: 'https://api.github.com/repos/USERNAME/REPO',
     beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", "token " + PERSONAL_ACCESS_TOKEN)
+        xhr.setRequestHeader("Authorization", "token " + PERSONAL_ACCESS_TOKEN); // notice the lower case t in token
     }
 })
 {% endhighlight %}
@@ -36,11 +36,11 @@ According to [this](https://developer.github.com/assets/images/intro-to-apps-flo
 1. Create a Github app and install it on my user. I provided a dummy webhook URL.
 2. Generate private key and store it locally.
 3. Generate JWT using the ruby script. The ISS is the ID of the app.
-4. Put that JWT in the Authorization header and Accept to find the access_token URL
+4. Put that JWT in the Authorization ("Bearer" with capital B) header and Accept to find the access_token URL
 5. POST to create a new access token.
 6. Now use this for authenticated calls.
 
-The access token has a lifetime of an hour (?) after which I am not sure you can use the JWT again because it has a lifetime of 10 minutes.
+The access token has a lifetime of an hour? If so, I am unsure how to refresh it programmatically.
 
 {% if page.comments %}
 <div id="disqus_thread"></div>
