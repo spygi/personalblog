@@ -59,6 +59,8 @@ TODO
 TODO?
 
 ## Box model
+The `box-sizing` CSS3 property dictates how the element width is calculated [see image from spec](https://www.jefftk.com/p/the-revenge-of-the-ie-box-model), with the [default value being `content-box`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing). Many (experts including [Paul Irish](https://www.paulirish.com/2012/box-sizing-border-box-ftw/) or reset libraries like normalize.css) suggest using `box-model` (IE's old implementation) and I 👍🏻.
+
 
 {% if page.comments %}
 <div id="disqus_thread"></div>
