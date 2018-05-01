@@ -71,6 +71,8 @@ Typical caches:
 + Time based expiration policies: `Cache-Control: max-age` in HTTP requests and responses, `Expires:` in HTTP responses, `expires` field in cookies, TTL in DNS
 + Content-based expiration: filename "cache busting" or `ETag`
 + `no-cache` (but use Etag), `no-store` (privacy), `private` (no caching from CDN), `public` (not needed if you have max-age set)
++ jquery cache true sets correctly If-None-Match: W/"2fe8c49403649a091d39c37460bb963b"
+If-Modified-Since https://github.com/jquery/jquery/blob/master/src/ajax.js
 
 ## Resources
 + [HighScalability](highscalability.com)

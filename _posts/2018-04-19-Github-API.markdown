@@ -22,25 +22,45 @@ $.get({
 })
 {% endhighlight %}
 
-This works locally (you can see the `X-RateLimit-Limit` response header set to 5000) but when I pushed to Github, Github detects that there is an active token in a public repo and revokes it! I tried obfuscating it in HTML (and accessing it in JS with `document.querySelector("meta[name='gh:token']").getAttribute('content');`) but Github detected it as well. And of course it's not secure since it's available on JS (though I had set the scopes to a very restrictive subset).
-Not sure how this guy/gal gets away with it [here](https://github.com/lepture/github-cards/blob/master/index.html) since they have client-id and client-secret in the code. They write at the [footer](https://lab.lepture.com/github-cards/) that it's "Hosted on Github" but DNS doesn't seem to redirect anywhere (and also there is no CNAME file at the repo)
+This works locally (you can see the `X-RateLimit-Limit` response header set to 5000) but when I pushed to Github, Github detects that there is an active token in a public repo and revokes it! I tried obfuscating it in HTML (and accessing it in JS with `document.querySelector("meta[name='gh:token']").getAttribute('content');`) but Github detected it as well. And of course it's not secure since it's available on JS (you can restrict the scopes the token can "access" but still).
+Not sure how this guy/gal gets away with it [here](https://github.com/lepture/github-cards/blob/master/index.html) since they have client-id and client-secret in the code. They write at the [footer](https://lab.lepture.com/github-cards/) that it's "Hosted on Github" but I doubt it: DNS doesn't seem to redirect anywhere (and also there is no CNAME file at the repo)
 ```
 dig +noall +answer lab.lepture.com
 lab.lepture.com.	142	IN	A	104.28.19.92
 lab.lepture.com.	142	IN	A	104.28.18.92
 ```
+Anywaaaay...
 
-### The right way
+### The "right" way
 According to [this](https://developer.github.com/assets/images/intro-to-apps-flow.png) I need a Github app that access some of the data as me. The instructions to authenticate against a Github app are [here](https://developer.github.com/apps/building-github-apps/authentication-options-for-github-apps/#authenticating-as-a-github-app).
 
-1. Create a Github app and install it on my user. I provided a dummy webhook URL.
-2. Generate private key and store it locally.
-3. Generate JWT using the ruby script. The ISS is the ID of the app.
-4. Put that JWT in the Authorization ("Bearer" with capital B) header and Accept to find the access_token URL
-5. POST to create a new access token.
-6. Now use this for authenticated calls.
+1. Create a Github app on the web ui and install it for my user only (not organisation). I provided a dummy webhook URL.
+2. Generate a private key and store it locally.
+3. Generate JWT using the ruby script they provide in the instructions. The ISS is the ID of the app.
+4. Put that JWT in an `Authorization: Bearer JWT` header ("Bearer" with capital B) header together with an `Accept` header to find the access_token URL.
+5. POST to that URL to create a new access token.
+6. Now use this token for authenticated calls.
 
-The access token has a lifetime of an hour? If so, I am unsure how to refresh it programmatically.
+## However...
+> Installation access tokens [] expire after one hour.
+
+The access token expires.
+
+### Workarounds?
+Tried using an expiration time that is more than 10 minutes away, got a JWT but when I tried to use it got `"message": "'Expiration time' claim ('exp') is too far in the future"`
+
+I can see two workarounds:
+1. at build time you generate many JWTs for the future with start-expirations times that differ 10 minutes and store them somewhere that JS has access to. Now whenever an access token expires you would use say the 6th JWT to create a new access token. Too complicated and also needs a backend.   
+1. Or you use a client side JWT generation which means that you need to upload the private key to Github (probably Github will also detect that and revoke it?) so that JS has access to it. No security advantage, just makes it a bit harder for the attacker to generate the token.
+
+Ooor you encrypt the private key and put it into travis.yml. On build Travis decrypts it and one of the 2 ways above are followed...ok, it's the same as above.
+
+## Dead-end
+It seems I either need a Backend to update JWT or go with unauthenticated and cached requests.
+
+I did the second, with JQuery's `cache: true` option. This does a conditional GET based on the ETAG returned which according to the documentation
+> Making a conditional request and receiving a 304 response does not count against your Rate Limit, so we encourage you to use it whenever possible. https://developer.github.com/v3/
+
 
 {% if page.comments %}
 <div id="disqus_thread"></div>

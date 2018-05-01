@@ -1,0 +1,37 @@
+
+
+## Front-end
+Service workers
+Reduce number of requests
+Parallelize requests
+Cache, long lived
+Reduce DNS querries
+CDN
+cookies
+HTTP2? web sockets
+
+
+## Backend/Application server
+Asynchronous messaging.
+Follows split according to services (verbs) or resources (nouns) for the data.
+Session data.
+Tomcat
+Talks to multiple DBs.
+
+## Web server
+Apache, Nginx
+
+## Load balancing
+
+## Static content
+
+## Special tiers
+Session data
+Caches
+
+## The network in between the layers.
+Often forgotten as a SPOF.
+Encrypted between public clouds.
+RED, logs should be different. AWS vpn entry issue.
+
+## Why microservices: Y split - scale independently, different SLA/security etc, split engineering teams
