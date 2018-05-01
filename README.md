@@ -17,9 +17,7 @@ My tech blog built with Jekyll and published on Github pages. Uses the [basicall
 + [Metadata exposed from Github gem](https://help.github.com/articles/repository-metadata-on-github-pages/#available-repository-metadata)
 
 ### Configuration on Github (pages) side
-+ Regarding repos/branches: You can use Github Pages once per user/organisation (special repository named "spygi.github.io", master branch) or per project (on master branch, master branch `/docs` folder or special "gh-pages" branch). This repo is using the per repo method with the `master` branch (not /docs)
-
-+ [Serving through Github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#default-source-settings-for-repositories-without-the-username-naming-scheme) ![Github pages setup](assets/readme/github-pages-setup.png "Github pages setup")
++ Regarding repos/branches: You can use Github Pages once per user/organisation (special repository named "spygi.github.io", master branch) or per project (on master branch, master branch `/docs` folder or special "gh-pages" branch). This repo is using the per repo method with the `master` branch (not /docs). [Serving through Github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#default-source-settings-for-repositories-without-the-username-naming-scheme)
 
 + \_site is .gitignored (that's where Jekyll puts its output)
 
