@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem 'jekyll', '= 3.5.2' # locked in to be consistent GitHub Pages.
-gem 'jekyll-theme-simple-texture'
+gem 'jekyll-theme-basically-basic'
 gem "github-pages", group: :jekyll_plugins
 gem "rake", "~> 12.3.0"
 
