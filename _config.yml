@@ -3,7 +3,6 @@ encoding: UTF-8
 exclude: ["*.gem", "*.gemspec", "Gemfile", "Gemfile.lock", "node_modules", "Rakefile", "starter-kit", "vendor"]
 lang: en # Language code as defined in _data/i18n.yml. en, en-gb, en-us, zh, zh-cn, zh-tw etc.
 permalink: /:categories/:title/ # same as none
-theme: jekyll-theme-basically-basic # to build locally
 remote_theme: mmistakes/jekyll-theme-basically-basic # to build on Github pages
 
 whitelist: [jekyll-feed, jekyll-redirect-from, jekyll-seo-tag, jekyll-sitemap]
@@ -59,6 +58,8 @@ addthis_public_id: # AddThis sharing plugin. See http://www.addthis.com/. E.g. r
 
 paths:
   categories: /blog/categories/
+
+search: true # basically-basic theme: for site-wide search
 
 # Settings for builing master branch with travis-ci
 # with jekyll-travis. Copied and modified from https://github.com/jekyller/jasper2/blob/master/_config.yml
