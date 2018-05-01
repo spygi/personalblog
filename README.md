@@ -1,4 +1,4 @@
-My tech blog built with Jekyll, Travis CI, Rake and published on Github pages. Uses the [basically basic](https://github.com/mmistakes/jekyll-theme-basically-basic) from [this awesome guy](https://twitter.com/mmistakes).
+My tech blog built with Jekyll and published on Github pages. Uses the [basically basic](https://github.com/mmistakes/jekyll-theme-basically-basic) from [this awesome guy](https://twitter.com/mmistakes).
 
 ## Writing
 ### Locally
@@ -17,9 +17,7 @@ My tech blog built with Jekyll, Travis CI, Rake and published on Github pages. U
 + [Metadata exposed from Github gem](https://help.github.com/articles/repository-metadata-on-github-pages/#available-repository-metadata)
 
 ### Configuration on Github (pages) side
-+ Regarding repos/branches: You can use Github Pages once per user/organisation (special repository named "spygi.github.io", master branch)
-or per project (/docs folder in master or special "gh-pages" branch).
-This repo is using the latter method with the "gh-pages" branch. Note that the author pushes to master and Travis CI builds the site and pushes to the gh-pages.
++ Regarding repos/branches: You can use Github Pages once per user/organisation (special repository named "spygi.github.io", master branch) or per project (on master branch, master branch `/docs` folder or special "gh-pages" branch). This repo is using the per repo method with the `master` branch (not /docs)
 
 + [Serving through Github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#default-source-settings-for-repositories-without-the-username-naming-scheme) ![Github pages setup](assets/readme/github-pages-setup.png "Github pages setup")
 
@@ -34,9 +32,9 @@ This repo is using the latter method with the "gh-pages" branch. Note that the a
 
 ### Theme configuration
 + Regarding themes the easiest way to publish on Pages is by using one of the [Github pages supported themes](https://pages.github.com/themes/). You simply add them on the Gemfile and \_config.yml and you are done.
-+ I didn't find something that I liked so I added Travis integration following instructions from the [Jasper 2 theme](https://github.com/jekyller/jasper2). The idea is by pushing to master, a Travis job is started to build the site with Rake and then push it to the `gh-pages` branch. For more details see [the related post](http://tech.spygi.me/devops/Travis-CI/).
++ ~~I didn't find something that I liked so I added Travis integration following instructions from the [Jasper 2 theme](https://github.com/jekyller/jasper2). The idea is by pushing to master, a Travis job is started to build the site with Rake and then push it to the `gh-pages` branch. For more details see [the related post](http://tech.spygi.me/devops/Travis-CI/).~~ This is not required anymore since Github added full support of [any Github-located theme](https://blog.github.com/2017-11-29-use-any-theme-with-github-pages/). I just use `remote_theme: owner/name` in \_config.yml
 
 ## Credits
 Initial inspiration by [Laurent Pellegrino's blog](http://www.pellegrino.link/) and [Marco's](http://mziccard.me/) though neither of the the 2 worked out of the box for me: Laurent's worked locally but when pushing on Github.io, CSS and other static assets where not linked correctly (tried various combinations of base_url and relative_url but then linking of the pages would not work) and Marco used the special user repo method which I want to keep free for other stuff.
 
-Thanks to [Jasper 2 theme](https://github.com/jekyller/jasper2) for the Travis integration and to ~~[simple texture theme](https://github.com/yizeng/jekyll-theme-simple-texture)~~[basically basic](https://github.com/mmistakes/jekyll-theme-basically-basic) for the theme.
+Thanks to [Michael aka mmistakes](https://twitter.com/mmistakes) for the theme.
