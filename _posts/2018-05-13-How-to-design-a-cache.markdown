@@ -2,7 +2,6 @@
 layout: post
 title:  "How to design a cache"
 date:   2018-05-13
-comments: true
 categories: architecture
 ---
 I started reading up on caches. This is my general introduction if you ever need to design one (or understand better how it works from within).

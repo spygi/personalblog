@@ -13,7 +13,7 @@ twitter_username: spy_gi
 github_username: spygi
 google_analytics: UA-119134259-1
 disqus:
-    shortname: spygi
+    shortname: tech-spygi-me
 
 logo: # path of site logo, e.g. "/assets/images/logo.png"
 search: true # basically-basic theme: for site-wide search

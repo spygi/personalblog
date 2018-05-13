@@ -2,7 +2,6 @@
 layout: post
 title:  "Github API"
 date:   2018-04-19
-comments: true
 categories: front-end
 ---
 For my [personal site](http://spygi.me) I wanted to fetch data from Github API. Some context: the site is built using TravisCI and hosted in Heroku. No backend.
@@ -60,27 +59,3 @@ It seems I either need a Backend to update JWT or go with unauthenticated and ca
 
 I did the second, with JQuery's `cache: true` option. This does a conditional GET based on the ETAG returned which according to the documentation
 > Making a conditional request and receiving a 304 response does not count against your Rate Limit, so we encourage you to use it whenever possible. https://developer.github.com/v3/
-
-
-{% if page.comments %}
-<div id="disqus_thread"></div>
-<script>
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://tech-spygi-me.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<script id="dsq-count-scr" src="//tech-spygi-me.disqus.com/count.js" async></script>
-{% endif %}

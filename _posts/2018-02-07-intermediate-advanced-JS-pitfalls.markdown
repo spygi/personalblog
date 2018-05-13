@@ -2,7 +2,6 @@
 layout: post
 title:  "Intermediate to advanced JS pitfalls (browser)"
 date:   2018-02-07 15:01:05 +0100
-comments: true
 categories: javascript
 ---
 Some (advanced in my opinion) pitfalls while using JS in the browser. For the most part I have used ES5 (with the exception of `let`). Only dependency is JQuery (only to print the results).
