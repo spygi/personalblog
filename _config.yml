@@ -2,18 +2,21 @@ encoding: UTF-8
 lang: en
 title: Spyros' tech blog
 email:
-description:
+description: Spyros' tech blog about topics like web development, theoretical cs, architecture and more.
 baseurl: # the optional subpath of your site, e.g. "/blog"
 url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 author:
-  name: Spyros Giannakakis
+  name: Spyros
   twitter:
   picture:
-twitter_username: spy_gi
+twitter_username: spy_gi # for the theme
 github_username: spygi
 google_analytics: UA-119134259-1
 disqus:
     shortname: tech-spygi-me
+twitter: # for the seo-tag plugin
+  card: summary
+  username: spy_gi
 
 logo: # path of site logo, e.g. "/assets/images/logo.png"
 search: true # basically-basic theme: for site-wide search
