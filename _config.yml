@@ -41,7 +41,6 @@ kramdown:
   toc_levels: 1..3
 remote_theme: mmistakes/jekyll-theme-basically-basic # used locally and on Github pages
 exclude: ["*.gem", "*.gemspec", "Gemfile", "Gemfile.lock", "node_modules", "starter-kit", "vendor"]
-whitelist: [jekyll-feed, jekyll-redirect-from, jekyll-seo-tag, jekyll-sitemap]
 plugins:
   - jekyll-feed
   - jekyll-redirect-from
