@@ -31,40 +31,7 @@ TODO
 In cache/db/ etc.
 + Optimization: temporal or spatial locality of data? on READ misses or WRITE misses with allocate.
 
-## Design a cache
-+ What to use as a key? We need easy/fast lookups and updates/clean-up.
-+ What is the expiration policy?
-+ What is the replacement/eviction/flush policy?  
-
-Some pointers on how to reason:
-+ Usage patterns?
-  + If we read often, consider time expirations.
-  + If we write often, consider content expirations.
-+ Data patterns?
-  + If items can be big, consider giving them a "lower priority" (implemented as a lower counter) to flush them first.
-+ Does our data have temporal/spatial or other locality eg do we need to cache per user or per query (across all users)? This will affect the key used.
-+ Size: can it fit in RAM? Of a single machine or distributed? If distributed reconsider all the above :P
-
-### Analysis
-+ 2 operations: read/write each with 2 outcomes: hit/miss. Obviously: if it's a WRITE miss it would also have been a READ miss for the same item.  
-
-| Operation | HIT | MISS |
-| --- |---| ---|
-| READ | is it fresh/valid? return data | write data to cache and return |
-| WRITE | write-through or write-back | write allocate or no-write allocate |
-
-Typical caches:
-  + READ misses: always write data to cache
-  + WRITE hits policies can be write-through or write-back: WRITE hits update the cache immediately but might get delayed on the persistent storage. Subsequent reads (will also be hits) have therefore always valid data.
-  + WRITE misses can be write-allocate (fetch on write) or no-write (write around): writes misses will go to the persistent storage anyway the question is if they are gonna get fetched to the cache or not. So subsequent READS might be hit (write-allocate, valid data because it was fetched as well) or miss (write around, will go to the persistent storage that has the valid data).<a href="https://en.wikipedia.org/wiki/Cache_(computing)">Wikipedia</a>
-
-+ Policies:
-  + *Expiration policies*: "Old/stale/invalid data" concern READ hits: can happen on caches that cache remote objects (eg. HTTP cache in browsers or CDNs). Expiration policies are used to check this: time (absolute or sliding window) or "cache dependency" (based on the content)
-    + [Redis expiration](https://redis.io/commands/expire)
-  + [*Cache replacement/eviction policies*](https://en.wikipedia.org/wiki/Cache_replacement_policies) What happens when the cache becomes full? If we have write-back, we need to first write stuff to storage. Then we need to start flushing data. How do we choose?
-    + FIFO, LIFO, LRU (least recently used), TLRU (time aware = LRU with time expiration), MRU, least frequently used (counter of usages) etc. Used can mean read or write?
-    + The expired policy can affect this as the expired items can be evicted first.
-    + [Redis replacement policies](https://redis.io/topics/lru-cache) and a problem with [memory fragmentation](https://www.couyon.net/blog/using-redis-as-a-lru-cache-dont-do-it)
+See cahces post about caches.
 
 ### Web examples
 [HTTP Caching](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching):
@@ -78,4 +45,4 @@ If-Modified-Since https://github.com/jquery/jquery/blob/master/src/ajax.js
 + [HighScalability](highscalability.com)
 + [Scalability for dummies parts 1-4](http://www.lecloud.net/tagged/scalability)
 + Cracking the coding interview, Chapter 10
-+ [Policy suggestions](https://www.neovolve.com/2008/10/08/cache-expiration-policies/)
++ [Scalability Rules](http://scalabilityrules.com/)
