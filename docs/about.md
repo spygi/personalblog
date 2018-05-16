@@ -1,6 +1,7 @@
 ---
 layout: about
 title: About
+permalink: about
 ---
 You can find more about me [here](http://spygi.me).
 

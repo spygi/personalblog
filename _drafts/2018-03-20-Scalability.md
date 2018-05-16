@@ -26,6 +26,10 @@ categories: devops
   + Offline jobs
   + Message broker/queue like Kafka, Rabbitmq, Activemq
 
+Cookies vs local/session storage https://stackoverflow.com/questions/19867599/what-is-the-difference-between-localstorage-sessionstorage-session-and-cookies
+Cookies in depth https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+HTTP and HTTPS cookies https://stackoverflow.com/questions/2163828/reading-cookies-via-https-that-were-set-using-http
+
 ### Design data sharding
 TODO
 In cache/db/ etc.
@@ -40,6 +44,16 @@ See cahces post about caches.
 + `no-cache` (but use Etag), `no-store` (privacy), `private` (no caching from CDN), `public` (not needed if you have max-age set)
 + jquery cache true sets correctly If-None-Match: W/"2fe8c49403649a091d39c37460bb963b"
 If-Modified-Since https://github.com/jquery/jquery/blob/master/src/ajax.js
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since
+pre-flight: https://stackoverflow.com/questions/12013216/how-to-apply-cors-preflight-cache-to-an-entire-domain
+
+Cache control directives https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
+https://webmasters.stackexchange.com/questions/62854/why-dont-browsers-respect-cache-headers-for-initial-page-request?rq=1
+https://stackoverflow.com/questions/14541077/why-is-cache-control-attribute-sent-in-request-header-client-to-server
+https://webmasters.stackexchange.com/questions/30808/how-should-cache-control-be-set-in-the-requests
+https://jakearchibald.com/2016/caching-best-practices/
+https://sookocheff.com/post/api/effective-caching/
 
 ## Resources
 + [HighScalability](highscalability.com)
