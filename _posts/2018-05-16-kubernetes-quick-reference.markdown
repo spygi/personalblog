@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "🚧 Kubernetes intro 🚧"
 date:   2018-05-16
 categories: devops
+tags: self-study
 ---
+This is a quick reference for me as I am reading upon Kubernetes.
+
 ## Orchestration: Kubernetes (Minikube or Google Kubernetes Engine)
 ### Quick start - Minikube
 - Prerequisites: install [minikube](https://github.com/kubernetes/minikube), kubectl + a vm-driver (Virtualbox)

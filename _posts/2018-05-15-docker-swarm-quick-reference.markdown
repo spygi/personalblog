@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Docker & Docker Swarm intro"
 date:   2018-05-15
 categories: devops
+tags: self-study
 ---
+This is a quick reference for me as I am reading upon Docker and Docker Swarm.
+
 ## Docker
 ### Quick start
 - $dev-machine: Write a Dockerfile in which you expose a port
@@ -17,7 +19,7 @@ The Docker client/daemon builds and tags an Image, pushes it to a Registry, runs
 ### Prerequisites
 - Docker client/daemon for the build and the container machines.
 - A Docker registry e.g. hub.docker.com or Google Container registry. cloud.docker.com offers more features over hub.docker.com?
-- A Dockerfile
+- A Dockerfile: [best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
 ### Useful commands
 - `docker system df -v` # for disk usage from Docker
