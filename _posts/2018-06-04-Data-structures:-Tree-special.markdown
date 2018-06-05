@@ -1,0 +1,31 @@
+---
+layout: post
+date:   2018-06-06
+categories: theoretical-cs
+tags: self-study
+---
+[1]: https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/098478280X "Cracking the coding interview (5th edition)"
+[2]: https://www.amazon.com/Elements-Programming-Interviews-Java-Insiders/dp/1517671272/ref=pd_sim_14_3?_encoding=UTF8&pd_rd_i=1517671272&pd_rd_r=XEQKDVEBYF5DAWEC6B7W&pd_rd_w=8RwvQ&pd_rd_wg=L59s8&psc=1&refRID=XEQKDVEBYF5DAWEC6B7W&dpID=51EjkypFE0L&preST=_SY291_BO1,204,203,200_QL40_&dpSrc=detail "Elements of Programming Interviews (in Java)"
+
+A special section on trees/heaps because these are the data structures I have used the least professionally. Find the introduction on data structures [here]({{ site.baseurl }}{% post_url 2018-06-04-Data-structures,-algorithms-primer:-Intro %}).
+
+
+Trees are special cases of graphs. Terminology on trees is not universally agreed upon. Here I follow [2]'s names.
+
+We are mostly interested in binary trees: formally, a binary tree is either empty or a root with a left and right binary tree. Less formally, each node has at most two children (a special case of k-ary tree for k=2).
+
++ Depth of root is 0. Height of the tree is the maximum depth of any node. A level consists of nodes on the same depth. A leaf is a node with no children (or descendants).
++ Every node has a unique parent (except the root). The path to a node from the root is unique as well.
++ Full binary tree: every node beside the leaves has 2 children.
++ Perfect: a full tree in which all leaves are at the same depth
++ Complete: every level except possibly the last is completely filled (so every node beside the leaves has 2 children=full tree) and all nodes are as far left as possible.
++ Balanced: a tree which for every node, the height of the left and right subtrees differ at most by 1. A perfect or complete tree is balanced but not vice versa. The height of a balanced binary tree is logn (which is also the minimum height a tree can take)
+
+Contains reference to parent or not?
+
+#### Special Trees
++ Heap: a complete binary tree that fulfils the heap property: every node is >= then its children. Can be implemented as an array.
++ Binary *search* tree: a binary tree (not complete) where every node is greater than or equal to the left subtree (not just child) and the less than or equal to the right subtree.
++ B-tree: a BST with more than 2 children
++ Red-black: a height balanced BST
++ Trie: a tree that stores characters
