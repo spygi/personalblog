@@ -1,0 +1,51 @@
+---
+title: "Meta: coding interview preparation"
+layout: post
+date: 2018-06-04
+categories: theoretical-cs
+tags: self-study
+---
+[1]: https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/098478280X "Cracking the coding interview (5th edition)"
+[2]: https://www.amazon.com/Elements-Programming-Interviews-Java-Insiders/dp/1517671272/ref=pd_sim_14_3?_encoding=UTF8&pd_rd_i=1517671272&pd_rd_r=XEQKDVEBYF5DAWEC6B7W&pd_rd_w=8RwvQ&pd_rd_wg=L59s8&psc=1&refRID=XEQKDVEBYF5DAWEC6B7W&dpID=51EjkypFE0L&preST=_SY291_BO1,204,203,200_QL40_&dpSrc=detail "Elements of Programming Interviews (in Java)"
+[3]: Algorithms in a Nutshell
+[4]: Get that job at Google
+https://www.geeksforgeeks.org/graph-and-its-representations/
+
+https://medium.com/@nickciubotariu/ace-the-coding-interview-every-time-d169ce1fd3fc
+https://medium.freecodecamp.org/coding-interviews-for-dummies-5e048933b82b
+
+I used 3 main resources. Cracking because it's the classic. However after going through it 2 times I was missing some (deeper) theory and implementation details. That's what [2] offers. I especially liked the Java best practices. As a reference I used [3] although a lot (including [4]) propose Skiena's The algorithm design manual
+
+
+### Graphs for example
+Most of my information on graphs comes from [2] (theory and problems) and [3](implementation details and more advanced algorithms-Dijkstra).
+
+Graphs are important, [says Google](4). However [1] has almost no theory on graphs and only one problem specific to them. Graphs can be implemented in 3 ways, says also Google<sup>4</sup> Both [2], [3] (and [5]) only mention adjacency matrix and list though. Both [2] and [4] agree that Dijkstra is probably off limits for a technical interview though.
+
+
+## Before
+- Prepare for remote coding using simple editor without autocompletion for online. Most companies go for this method (e.g. Google->Google Doc, Microsoft->Codepad, Palantir->Hackerank). That's when you realise how much you rely on autocompletion. Stripe was interesting in that they let you use your IDE while you screen share with them.
+- For onsites: simple paper (or whiteboard if you have one). In Uber they asked me for my laptop so I practiced on an IDE too.
+
+
+## On the interview
+- Clarify the format of the input and output, e.g. battleship question.
+- Take a minute to think *and sketch* the algorithm in paper, it helps you visualize things.
+- Start discussing the simplest, naive, brute-force solution first - and say that you are doing that
+  - It gives you confidence to have at least solved the problem even in a trivial way.
+  - It could be all they ask for (the problem is too difficult or you will discuss -not write- an optimized way)
+  - The only problem with this approach is if a brute-force solution is not performant enough or not even correct and you need DP or something else. While discussing with the interviewer you should figure out if the brute-force leads to a dead-end and you need another approach.
+- Don't run your edge cases first!
+
+
+## Groups of problems - TODO
+- Given an array, find subarray where a condition is fulfilled and *return the number* (not the array)
+  - Sum is X (17.8 in [1])
+  - Product is Y (Leetcode 152)
+
+
+## Resources
+- Cracking the Coding interview<sup>[1]</sup> and the accompanying repo
+- Elements of Programming Interviews in Java<sup>[2]</sup> and the repo
+- Algorithms in a Nutshell
+- [Palantir](https://www.palantir.com/2011/10/the-coding-interview/)  
