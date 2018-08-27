@@ -38,6 +38,23 @@ Graphs are important, [says Google](4). However [1] has almost no theory on grap
 - Don't run your edge cases first!
 
 
+## In a rush?
+- Recursion (especially in trees, lists)
+- Iterating 2D arrays (row and column wise!)
+- Graphs and their representations
+- Permutations/Combinations
+  - Only the coefficient code, not that common in my experience
+- Generate all sequences
+- Language Specific
+  - Reference system, garbage Collection
+  - Conversions among Types
+  - Collections/Streams API
+- Sorting
+  - High level repetition, implementation of insertion sort.
+- Binary search
+- Dynamic programming: high level
+
+
 ## Groups of problems - TODO
 - Given an array, find subarray where a condition is fulfilled and *return the number* (not the array)
   - Sum is X (17.8 in [1])

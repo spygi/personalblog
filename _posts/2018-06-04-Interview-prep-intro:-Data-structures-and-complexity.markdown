@@ -43,7 +43,7 @@ Some notes:
 
 |name|access|search|insert/delete|Java|custom impl., notes|
 |-   |-     |-     |-            |-           |-          |  
-|arrays|O(1)|O(n)|O(n)|Arrays, ArrayList|new int[]{1,2}|
+|arrays|O(1)|O(n)|O(n)|Arrays, ArrayList||
 |strings|same as array|||String, StringBuilder|immutable (in most?) languages|
 |list|O(n)|O(n)|O(1)|LinkedList (is doubly linked!)|array or dynamic allocation|
 |stack|array or list, depends on implementation||| ArrayDeque or LinkedList (not Stack interface) | array or dynamic, LIFO, think of a stack of plates |
@@ -57,9 +57,6 @@ Some notes:
 More data types: Abstract [ADT](https://en.wikipedia.org/wiki/Abstract_data_type)
 + bag: unordered set, can contain duplicates
 + set: unordered, no duplicates
-
-Questions to ask for custom implementations
-+ Tree: do we have a link to the parent?
 
 
 ### How to choose an appropriate structure
@@ -78,7 +75,15 @@ If you need to create a custom implementation:
 +  
 
 
-## Java implementation details
+## Java implementation details, tips
+- Arrays
+  - new int[]{1, 2, 3}
+  - Copying
+    - Arrays.copyOfRange(old, start, end). Careful the only things checked are `start < 0`, `start > old.length`, `start > end` (e.g. you can get a bigger array if `end > old.length`)
+    - `IntStream.range(3,1).mapToObj(i->a[i]).toArray(Integer[]::new)`
+- List
+  - From array of `Integer` (not `int`!): `Arrays.asList(new Integer[]{})`
+  - Instantiate and initialize: `new ArrayList<>(){ { add(1) } }`
 - Synchronized versions: Vector, StringBuffer, HashTable or ConcurrentHashMap, PriorityBlockingQueue
 - ArrayDeque: has head and tail: supports inserts/deletions from both ends. The semantics of the queue/stack (i.e. name of method used determine what is returned in each occasion.
   - Stack? `push` and `pop` (operate on the head)

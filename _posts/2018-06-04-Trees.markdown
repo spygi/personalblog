@@ -12,26 +12,35 @@ A special section on trees/heaps/graphs because these are the data structures I 
 
 
 ## From graphs..
-Graphs can be implemented in three ways says Google. These are [objects and pointers](https://stackoverflow.com/a/5887363/2259743), adjacency list and matrix.
+Graphs can be implemented in three ways says Google/get that job at Google. These are objects and pointers, adjacency list and adjacency matrix, very nicely [explained here](https://stackoverflow.com/a/5887363/2259743). In this [Leetcode question](https://leetcode.com/problems/all-paths-from-source-to-target/description/) adjacency list is used backed up by a 2D array but it could have been a `Hashmap<Vertex, List<Vertex>`, a `List<List<Integer>>` (ok same as a 2D array) [etc](https://en.wikipedia.org/wiki/Adjacency_list#Implementation_details). Note that adjacency list as is is not appropriate for weighted graphs.
 
-There are of course other ways too like [edge list](https://stackoverflow.com/questions/3287003/three-ways-to-store-a-graph-in-memory-advantages-and-disadvantages)
-, [incidence matrix?](https://en.wikipedia.org/wiki/Graph_%28abstract_data_type%29#Representations) or [this pointer-hell](https://stackoverflow.com/questions/5493474/graph-implementation-c/5493656#5493656)
+|Method|Suitable for |
+|----|-|
+|Pointers|easy to recurse, (un)weighted|
+|Matrix|dense graphs, (un)directed, (un)weighted|
+|List|sparse graphs, unweighted|
 
- Analysis is done based on edges and vertices (instead of just n)
+For reference, there are other ways too, e.g. edge list (it is what the name suggests: a list of edges, the [3rd way listed here](https://stackoverflow.com/questions/3287003/three-ways-to-store-a-graph-in-memory-advantages-and-disadvantages), [incidence matrix?](https://en.wikipedia.org/wiki/Graph_%28abstract_data_type%29#Representations) or [this pointer-hell](https://stackoverflow.com/questions/5493474/graph-implementation-c/5493656#5493656) but you are not likely to encounter those.
+
 
 ### Analysis
-[From](https://dzone.com/articles/algorithm-week-graphs-and)
+Analysis is done based on edges and vertices (instead of just n).
 
-| Operation |Add/delete edge | Are i-j connected | Are i-j connected | Find successors of i |
-|----|-||||
-| 2-D Matrix |O(1)|O(1)|O(n^2)|O(n)|
-| List of vertices to vertices | logn |logn|O(|V|+|E|) for DFS|O(k): k being the list of successors|
+[Source](https://dzone.com/articles/algorithm-week-graphs-and)
 
+| Operation |Add/delete edge | Are i-j connected | Find path i-j | Find successors of i |
+|----|-|||
+| Matrix | O(1) | O(1) | O(n^2) | O(n) |
+| List of vertices to vertices | logn | logn | O(V+E) for DFS | O(k): k being the list of successors|
+
+Pointers: easy to recurse, can support weights.
 Space analysis: for sparse graphs
+
 TODO complete with Nutshell and wiki
 
+
 ## ..to trees
-Trees are special cases of graphs: undirected graph that is connected but has no cycles [2]. Terminology on trees is not universally agreed upon. Here I follow [2]'s names.
+Trees are special cases of graphs: an undirected graph that is connected but has no cycles [2]. Terminology on trees is not universally agreed upon. Here I follow [2]'s names.
 
 We are mostly interested in binary trees: formally, a binary tree is either empty or a root with a left and right binary tree. Less formally, each node has at most two children (a special case of k-ary tree for k=2).
 
@@ -75,11 +84,12 @@ Contains reference to parent or not?
 
 
 ### Just for reference
-+ Dijkstra and Bellman-Ford are single source shortest path
++ Dijkstra and Bellman-Ford are **single** source shortest path
   + A* is like [Dijkstra with heuristics](https://stackoverflow.com/questions/13031462/difference-and-advantages-between-dijkstra-a-star) (when you have more information about the graph)
     + An ([admissible](https://en.wikipedia.org/wiki/Admissible_heuristic)) heuristic can be the Hamming or Manhattan distance of the graph.
-+ Floyd-Warshall is for all pairs
++ Floyd-Warshall is to find shortest paths for **all pairs** of vertices.
 + Prim's and Kruskal's are for constructing a MST (minimum spanning tree)
+  + The [difference is](https://cs.stackexchange.com/a/44919/89670) that with a shortest path algorithm you might end up with something that is not a tree (e.g. has cycles)
 
 
 ## Groups of problems
