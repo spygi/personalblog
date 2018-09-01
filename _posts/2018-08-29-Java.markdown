@@ -1,0 +1,92 @@
+---
+title: "Java"
+layout: post
+date: 2018-08-29
+categories: software-engineering
+tags: self-study interview-prep
+---
+## Primitives
+- Boxing/unboxing
+- Ranges
+  - Constants: Integer.MIN_VALUE,
+- Transformations:
+  - Character to int: c-'0'
+  - String.valueOf(123)
+
+
+## Data structures
+- Arrays
+  - Initialization: `new int[]{1, 2, 3}` even 2d `new int[][]{ {1,2}, {2,4} }`
+  - Classes `Arrays` and `ArrayList`
+    - `Arrays.sort`: is in place, in acsending order, uses various algorithms
+    - `Arrays.binarySearch`
+    - ArrayList.add(i) moves all elements after i to the side
+  - Transformations
+    - `Arrays.asList(new Integer[]{1,2,3})`⇆`Collection.toArray()`
+      - Arrays.asList(new int[]) is not what you want probably!
+    - `String.toCharArray()`⇄`new String(char[])`
+  - Copying
+    - `Arrays.copyOfRange(old, start, end)` Careful the only things checked are `start < 0`, `start > old.length`, `start > end` (e.g. you can get a bigger array if `end > old.length`)
+    - Using streams: `IntStream.range(3,1).mapToObj(i->a[i]).toArray(Integer[]::new)`
+- String
+- List
+  - From array of `Integer` (not `int`!): `Arrays.asList(new Integer[]{})`
+  - Instantiate and initialize: `new ArrayList<>(){ { add(1) } }`
+- Synchronized versions: Vector, StringBuffer, HashTable or ConcurrentHashMap, PriorityBlockingQueue
+- ArrayDeque: has head and tail: supports inserts/deletions from both ends. The semantics of the queue/stack (i.e. name of method used determine what is returned in each occasion.
+  - Stack? `push` and `pop` (operate on the head)
+  - Queue: `add` (works on the tail) and `remove` (on the head). Look for "// *** Queue methods \***" (or Stack) in the source ;-)
+- PriorityQueue: min heap by default, needs Comparable elements, `add`, `peek`, `remove`
+- Hash related:  
+  - HashSet uses HashMap behind the scenes. Supports a contains method in O(1). Use a HashSet if you don't need to associate a key to a value.
+  - HashMap: complexity of all operations is actually O(1+n/m) where m is the number of "buckets", `put/putIfAbsent` and `get/getOrDefault`, Map.Entry : map.entrySet() to iterate
+  - If order of insertion or access (e.g. LRU) matters use the `Linked` variants.
+
+
+
+  ## Final
+  - On classes: they can't be subclassed. Note that both abstract and concrete classes can be subclassed.
+  - On methods: they can't be overiden.
+  - On fields: they can't be modified once initialised.
+
+  ## Access Identifiers
+  - Private (within class incl. nested), default/package, protected (outside package too by subclasses), public.
+    - Top level (non-nested) classes/interfaces can be public or package only! [1]
+  - Note the usage of them in constructors eg: [why use a private constructor](https://stackoverflow.com/questions/2062560/what-is-the-use-of-making-constructor-private-in-a-class)?
+    - A singleton
+    - A utility class.
+    - The constructor can only be accessed from static factory method inside the class itself
+
+  https://introcs.cs.princeton.edu/java/11precedence/
+
+
+  ## Inheritance
+  - Difference of interface vs abstract class.
+
+  ### Where to use what
+  - Common type? Abstract
+  - Common behavior? Interface
+  - Multiple inheritance is required? Interface
+  - Need private or protected identifiers? Abstract
+
+
+  ## Override vs overloading
+
+  [Collections](http://www.javapractices.com/topic/TopicAction.do?Id=65)
+
+  ## Strings
+  + Strings are immutable in Java.
+  + [Complexity of substring](https://stackoverflow.com/questions/4679746/time-complexity-of-javas-substring): used to be constant, after Java 7 is linear.
+
+
+  ## Tips
+    -
+  - Collection to stream
+  - Collections.unmodifiableList
+  - System.out.printf("A string: %s will appear with a new line %n", "Hello World")
+  - ... operator
+
+  https://www.geeksforgeeks.org/enum-in-java/
+
+  ## Resources
+  - Effective Java

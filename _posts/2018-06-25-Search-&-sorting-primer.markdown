@@ -8,7 +8,7 @@ tags: self-study interview-prep
 [3]: "Algorithms in a Nutshell"
 [4]: http://steve-yegge.blogspot.com/2008/03/get-that-job-at-google.html "Get that job at Google"
 
-The second part of my interview preparation focusing on searching and sorting. Find the introduction on data structures [here]({{ site.baseurl }}{% post_url 2018-06-04-Interview-prep-intro:-Data-structures-and-complexity %}).
+The third part of my interview preparation focusing on searching and sorting. Find the introduction on data structures [here]({{ site.baseurl }}{% post_url 2018-06-04-Interview-prep-intro:-Data-structures-and-complexity %}).
 
 
 ## Search

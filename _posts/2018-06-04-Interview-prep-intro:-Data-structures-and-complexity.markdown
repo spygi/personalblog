@@ -10,17 +10,17 @@ tags: self-study java interview-prep
 [4]: http://steve-yegge.blogspot.com/2008/03/get-that-job-at-google.html "Get that job at Google"
 
 This is the first part on a quick reference/revision on data structures and algorithms. My main resources are 3 books:
-- Cracking the Coding interview<sup>[1]</sup> and the accompanying repo
-- Elements of Programming Interviews in Java ([2]) and the repo
+- Cracking the Coding interview<sup>[1]</sup>
+- Elements of Programming Interviews in Java ([2])
 - Algorithms in a Nutshell
 
-Implementing classes will be in Java. Disclaimer: my main goal is interview preparation and not a thorough intro on CS fundamentals, so expect some simplifications or omissions.
+Implementing details will be in Java. Disclaimer: my main goal is interview preparation and not a thorough intro on CS fundamentals, so expect some simplifications or omissions.
 
 
 ## First things first: terminology
-+ Time complexity: I won't provide details because it is analysed in depth in every resource.
++ Time complexity
 + Space complexity: memory needed at *any* point in time. Unlike time complexity this is not the total/cumulative used by the algorithm.
-  + We care for *auxiliary space* complexity which means to ignore input storage (otherwise we would start with O(n) and upwards [2]) [SO question](https://stackoverflow.com/questions/30220305/how-to-calculate-the-space-complexity-of-function)
+  + We care for *auxiliary space* complexity. This means to ignore input storage (otherwise we would start with O(n) and upwards [2]) [SO question](https://stackoverflow.com/questions/30220305/how-to-calculate-the-space-complexity-of-function)
   + Allocations (e.g. of an array of size n) count against the complexity.
   + Recursion depth matters because variables stay in the stack. Specifically the space used is equal to "the deepest level of recursion" multiplied by "the size of the stack frame for each level". 2 remarks:  
     + The above is not true in languages with tail call optimization (like ES6) because they don't assign a new stack on tail recursion.
@@ -35,10 +35,10 @@ Implementing classes will be in Java. Disclaimer: my main goal is interview prep
 
 
 ## Basic data structures
-Mostly from [2]. The basic operations are access (when you know the index already), lookup/search, insertion and deletion. The basic operations for graphs are
+Mostly from [2]. The basic operations are access (knowing the index), lookup/search, insertion and deletion.
 
 Some notes:
-+ Insertion and deletion complexities are the same afaik.
++ Insertion and deletion complexities are the same (afaik).
 + All of the data structures need O(n) space (duuuh), besides skip list?
 
 |name|access|search|insert/delete|Java|custom impl., notes|
@@ -58,38 +58,22 @@ More data types: Abstract [ADT](https://en.wikipedia.org/wiki/Abstract_data_type
 + bag: unordered set, can contain duplicates
 + set: unordered, no duplicates
 
+For related Java classes and implementation tips see [here]({{ site.baseurl }}{% post_url 2018-08-29-Java %}).
 
 ### How to choose an appropriate structure
 - Do you have the algorithm in mind already?
   - Look at the special properties of each structure e.g. use stack if you need to process elements in LIFO order from the input or a set to remove duplicates.
-  - Look at what operations will we do the most e.g. insertions/deletions (start, middle or end), search/lookups (hashmap if we need to associate it with a value, hashset otherwise), access.
+  - Look at what operations will we do the most e.g.
+    - Insertions/deletions at start or middle: a list would be better than an array because an array would need to be shifted. If they are on the end they don't affect that much.
+    - Search/lookups? Hashmap if we need to associate it with a value, hashset otherwise
+    - Random access (e.g. in a map[][])? Array
 
 If you need to create a custom implementation:
 - Initial capacity? What happens on resizing?
 - Permits nulls or duplicates?
-- Synchronization?
+- Should it be thread safe?
 
 
 ### In real life
 + The call stack aka program stack is really [implemented as a stack](http://www.inf.udec.cl/~leo/teoX.pdf): the last method to enter executes first. Heap like a linked list?
 +  
-
-
-## Java implementation details, tips
-- Arrays
-  - new int[]{1, 2, 3}
-  - Copying
-    - Arrays.copyOfRange(old, start, end). Careful the only things checked are `start < 0`, `start > old.length`, `start > end` (e.g. you can get a bigger array if `end > old.length`)
-    - `IntStream.range(3,1).mapToObj(i->a[i]).toArray(Integer[]::new)`
-- List
-  - From array of `Integer` (not `int`!): `Arrays.asList(new Integer[]{})`
-  - Instantiate and initialize: `new ArrayList<>(){ { add(1) } }`
-- Synchronized versions: Vector, StringBuffer, HashTable or ConcurrentHashMap, PriorityBlockingQueue
-- ArrayDeque: has head and tail: supports inserts/deletions from both ends. The semantics of the queue/stack (i.e. name of method used determine what is returned in each occasion.
-  - Stack? `push` and `pop` (operate on the head)
-  - Queue: `add` (works on the tail) and `remove` (on the head). Look for "// *** Queue methods \***" (or Stack) in the source ;-)
-- PriorityQueue: min heap by default, needs Comparable elements, `add`, `peek`, `remove`
-- Hash related:  
-  - HashSet uses HashMap behind the scenes. Supports a contains method in O(1). Use a HashSet if you don't need to associate a key to a value.
-  - HashMap: complexity of all operations is actually O(1+n/m) where m is the number of "buckets", `put/putIfAbsent` and `get/getOrDefault`, Map.Entry : map.entrySet() to iterate
-  - If order of insertion or access (e.g. LRU) matters use the `Linked` variants.
