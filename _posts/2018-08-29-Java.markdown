@@ -5,8 +5,81 @@ date: 2018-08-29
 categories: software-engineering
 tags: self-study interview-prep
 ---
+A quick recap and some "advanced" Java topics.
+
+Index:
+- [Basics/Syntax](#heading-basicssyntax)
+- Interview setting
+  - [HR questions](#heading-hr-friendly-questions)
+  - [Primitives](#heading-primitives)
+  - [Data structures](#heading-data-structures)
+- Others
+  - [Inheritance](#heading-inheritance)
+  - [Concurrency](#heading-concurrency)
+  - [Streams](#heading-streams)
+  - [Memory model](#heading-memory-model)
+- [Resources](#heading-resources)
+
+
+## Basics/Syntax
++ Jtools: jstack(threads), jstat(monitoring), jmap(memory)
++ `transient` keyword: not serialized when sent over the network
++ [Field declaration](http://docs.oracle.com/javase/tutorial/reflect/member/fieldModifiers.html) in order of convention: access identifiers, then runtime behavior: transient (has to do with serialization), volatile. Static. Final. Annotations
+
++ [Access identifiers](http://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html) aka visibility keywords
+  - Private (within class incl. nested), default/package, protected (outside package too by subclasses), public.
+    - Top level (non-nested) classes/interfaces can be public or package only! [1]
+  - Note the usage of them in constructors eg: [why use a private constructor](https://stackoverflow.com/questions/2062560/what-is-the-use-of-making-constructor-private-in-a-class)?
+    - A singleton
+    - A utility class.
+    - The constructor can only be accessed from static factory method inside the class itself
+    - https://introcs.cs.princeton.edu/java/11precedence/
+
++ [Method declaration](http://docs.oracle.com/javase/tutorial/reflect/member/methodModifiers.html): Access identifiers. Static. Final. Abstract. Synchronised. Native. Strictf. Annotations.
++ [Operator precedence](http://introcs.cs.princeton.edu/java/11precedence/)
+Static keyword: : For class attributes and methods. : Static fields are initialized when the class is first loaded: either referred or instantiated. : You can't access a nonstatic method or field from a static method(eg. main), because the static method doesn't have the instance. : Abstract static methods are not allowed (if you have 2 subclasses B and C, which of will get called with A.foo()?)
++ [Annotations](http://docs.oracle.com/javase/tutorial/java/annotations/basics.html) Used by the compiler. creating object, casting, in implements, in throws. Can have 0, 1 or more elements.
++ varargs with <i>...</i>
++ For-each loop: http://docs.oracle.com/javase/1.5.0/docs/guide/language/foreach.html Applicable to arrays too! Cleaner code, especially for nested loops. But hides the iterator so you can't remove or replace elements as you traverse them -> wouldn't that cause a ConcurrentModification Exception anyways? You also can't use it to iterate multiple collections.
++ Iterable interface: Iterator itr = al.iterator(); while(itr.hasNext()) { Object element = itr.next(); ... }
++ Comparable interface: Total ordering (antisymmetry, transitivity, totality), throws if incompatible types
++ Collections: [http://ria101.wordpress.com/2011/12/12/concurrenthashmap-avoid-a-common-misuse/ Concurrent Hashmap common mistake]
+
+
+# Interview setting
+## HR-friendly questions
+### What does the final keyword do?
+From Ctci, I actually got asked this one from Evernote.
+- On classes: they can't be subclassed. (Offtopic: that both abstract and concrete classes can be subclassed.)
+- On methods: they can't be overiden.
+- On fields: they can't be modified once initialised.
+
+`finalize()` on the other hand is the method called by the garbage collector before collecting the object.
+
+### What is the difference of interface vs abstract class?
++ Abstract classes vs interface:   
+  + Abstract class: Can be `extended` by a single class (single inheritance) but needs not to implement all abstract methods (as long as it's also an abstract - multiple layers), can have some implementation.
+  + Interface: Can be `implemented` by many classes but must implement all methods (single layer), can hold no state or implementation (not engirely true on >Java8)
+  + Both: neither can contain private methods
+
+### Override vs Overloading
+Override (method from superclass) vs overloading (of arguments: change type and/or number of them)
+
+### Checked vs unchecked exceptions
+Unchecked exceptions are all subclasses of RuntimeException. Checked are the rest and they need to be caught or declared with <code>throws</code>. : The consensus is that checked exceptions should be avoided because they break encapsulation: : If you change the low-level code so that it throws a new exception, the higher level classes must re-throw it until the one that handles it : A lot of classes need to be changed for something that happened in a different layer for which they don't need to care.
+
+
+### "How up to date are you?"
+TODO: update this with Java 11
+[Java 9 features](https://www.pluralsight.com/blog/software-development/java-9-new-features)
++ Modules for dependency management (project jigsaw)
++ Jshell
+  + HTTP2
+
+
 ## Primitives
-- Boxing/unboxing
+[Primitive types](http://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html Primitive types): byte, short: 16bits, int: 32bits, long: 64bit, float: 32 not accurate, double: 64bits not accurate, boolean, char: ' '
++ Unboxing (Object -> primitive) can result in NPE in runtime (autoboxing is the opposite): Under the hood the [ compiler converts the code](http://docs.oracle.com/javase/tutorial/java/data/autoboxing.html)
 - Ranges
   - Constants: Integer.MIN_VALUE,
 - Transformations:
@@ -15,78 +88,113 @@ tags: self-study interview-prep
 
 
 ## Data structures
-- Arrays
-  - Initialization: `new int[]{1, 2, 3}` even 2d `new int[][]{ {1,2}, {2,4} }`
-  - Classes `Arrays` and `ArrayList`
-    - `Arrays.sort`: is in place, in acsending order, uses various algorithms
-    - `Arrays.binarySearch`
+Complements [my datastructures introduction]({{ site.baseurl }}{% post_url 2018-06-04-Interview-prep-intro:-Data-structures-and-complexity %}).
+
+### Arrays
+- Initialization: `new int[]{1, 2, 3}` even 2d `new int[][]{ {1,2}, {2,4} }`
+- Classes `Arrays` and `ArrayList`
+  - `Arrays.sort`: is in place, in acsending order, uses various algorithms depending on size of array
+  - `Arrays.binarySearch`
+  + ArrayList: dynamically resized (resizing cost), backed by an array, not thread safe. Good for iterating sequentially and getting elements.
     - ArrayList.add(i) moves all elements after i to the side
-  - Transformations
-    - `Arrays.asList(new Integer[]{1,2,3})`⇆`Collection.toArray()`
-      - Arrays.asList(new int[]) is not what you want probably!
-    - `String.toCharArray()`⇄`new String(char[])`
-  - Copying
-    - `Arrays.copyOfRange(old, start, end)` Careful the only things checked are `start < 0`, `start > old.length`, `start > end` (e.g. you can get a bigger array if `end > old.length`)
-    - Using streams: `IntStream.range(3,1).mapToObj(i->a[i]).toArray(Integer[]::new)`
-- String
-- List
-  - From array of `Integer` (not `int`!): `Arrays.asList(new Integer[]{})`
-  - Instantiate and initialize: `new ArrayList<>(){ { add(1) } }`
+- Transformations
+  - `Arrays.asList(new Integer[]{1,2,3})`⇆`Collection.toArray()`
+    - Arrays.asList(new int[]) is not what you want probably!
+  - `String.toCharArray()`⇄`new String(char[])`
+- Copying
+  - `Arrays.copyOfRange(old, start, end)` Careful the only things checked are `start < 0`, `start > old.length`, `start > end` (e.g. you can get a bigger array if `end > old.length`)
+  - Using streams: `IntStream.range(3,1).mapToObj(i->a[i]).toArray(Integer[]::new)`
+
+### String
+- Immutable
+- Stringbuilder and StringBuffer (for thread safe)
+
+### List
++ LinkedList: double linked list, not thread safe. Good for inserting/deleting from the middle of the list.
+- Array (Integer[] not `int`!) to Collection `Arrays.asList(new Integer[]{})`
+- Instantiate and initialize: `new ArrayList<>(){ { add(1) } }`
 - Synchronized versions: Vector, StringBuffer, HashTable or ConcurrentHashMap, PriorityBlockingQueue
-- ArrayDeque: has head and tail: supports inserts/deletions from both ends. The semantics of the queue/stack (i.e. name of method used determine what is returned in each occasion.
+
+### ArrayDeque
+has head and tail: supports inserts/deletions from both ends. The semantics of the queue/stack (i.e. name of method used determine what is returned in each occasion.
   - Stack? `push` and `pop` (operate on the head)
   - Queue: `add` (works on the tail) and `remove` (on the head). Look for "// *** Queue methods \***" (or Stack) in the source ;-)
-- PriorityQueue: min heap by default, needs Comparable elements, `add`, `peek`, `remove`
-- Hash related:  
-  - HashSet uses HashMap behind the scenes. Supports a contains method in O(1). Use a HashSet if you don't need to associate a key to a value.
-  - HashMap: complexity of all operations is actually O(1+n/m) where m is the number of "buckets", `put/putIfAbsent` and `get/getOrDefault`, Map.Entry : map.entrySet() to iterate
-  - If order of insertion or access (e.g. LRU) matters use the `Linked` variants.
+
+### PriorityQueue
+min heap by default, needs Comparable elements, `add`, `peek`, `remove`
+
+### Hash related
+- HashSet uses HashMap behind the scenes. Supports a contains method in O(1). Use a HashSet if you don't need to associate a key to a value.
+- HashMap: complexity of all operations is actually O(1+n/m) where m is the number of "buckets", `put/putIfAbsent` and `get/getOrDefault`, Map.Entry : map.entrySet() to iterate
+- If order of insertion or access (e.g. LRU) matters use the `Linked` variants.
 
 
-
-  ## Final
-  - On classes: they can't be subclassed. Note that both abstract and concrete classes can be subclassed.
-  - On methods: they can't be overiden.
-  - On fields: they can't be modified once initialised.
-
-  ## Access Identifiers
-  - Private (within class incl. nested), default/package, protected (outside package too by subclasses), public.
-    - Top level (non-nested) classes/interfaces can be public or package only! [1]
-  - Note the usage of them in constructors eg: [why use a private constructor](https://stackoverflow.com/questions/2062560/what-is-the-use-of-making-constructor-private-in-a-class)?
-    - A singleton
-    - A utility class.
-    - The constructor can only be accessed from static factory method inside the class itself
-
-  https://introcs.cs.princeton.edu/java/11precedence/
+# Others
+## Inheritance
+### Where to use what
+- Common type? Abstract
+- Common behavior? Interface
+- Multiple inheritance is required? Interface
+- Need private or protected identifiers? Abstract
 
 
-  ## Inheritance
-  - Difference of interface vs abstract class.
-
-  ### Where to use what
-  - Common type? Abstract
-  - Common behavior? Interface
-  - Multiple inheritance is required? Interface
-  - Need private or protected identifiers? Abstract
+## Concurrency
+See dedicated [post on concurrency]({{ site.baseurl }}{% post_url 2018-06-04-Interview-prep-intro:-Data-structures-and-complexity %})
 
 
-  ## Override vs overloading
+## Streams
+- @FunctionalInterface annotation (interface with only one abstract method - excluding those inhereted by Object),
+useful for lambdas etc.
 
-  [Collections](http://www.javapractices.com/topic/TopicAction.do?Id=65)
+- `::` is a method reference. The method can be static or not.
+- Lambda body variants:
+`a -> a.startsWith(" ")`, `(a, b) -> System.out.println(a + b)`, `(int a, int b) -> System.out.println(a + b)`,
+{% highlight java %}
+a -> {
+  // do something else
+  return a';
+}
+{% endhighlight %}
 
-  ## Strings
-  + Strings are immutable in Java.
-  + [Complexity of substring](https://stackoverflow.com/questions/4679746/time-complexity-of-javas-substring): used to be constant, after Java 7 is linear.
+- intermediate vs terminal operations
+
+[Cheat sheet](http://files.zeroturnaround.com/pdf/zt_java8_streams_cheat_sheet.pdf)
+https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html#package.description
+http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
 
 
-  ## Tips
-    -
-  - Collection to stream
-  - Collections.unmodifiableList
-  - System.out.printf("A string: %s will appear with a new line %n", "Hello World")
-  - ... operator
+## Memory model
+Java is pass by value: : for primitives this is self-proven : for objects: the reference is passed as a value. Therefore you can change inner objects that the argument contains but not the original object itself.
+A consequence is: : final List: allows modifying elements but compile-time error if modifying the List itself, Collections.unmodifiable offer truly immutable Lists.
 
-  https://www.geeksforgeeks.org/enum-in-java/
 
-  ## Resources
-  - Effective Java
+<!--
+[Collections](http://www.javapractices.com/topic/TopicAction.do?Id=65)
+
+
+## Interview Questions
+[http://norvig.com/java-iaq.html iaq]
+[http://www.allapplabs.com/interview_questions/java_interview_questions.htm#q3 interview questions]
+[https://www.udemy.com/blog/java-interview-questions/ udemy]
+[http://www.techinterviews.com/master-list-of-java-interview-questions master list]
+testing enums with == or equals: http://stackoverflow.com/a/2937561/2259743
+Installation
+JRE is to run Java programs, the runtime, the java applet. What the end-user needs. Most browsers are compatible with Java 7 64bit architecture, Chrome not (yet)
+The JDK is what you need to write programs in java, provides the javac compiler and java command, it's part of the SDK.
+The SDK contains besides the JDK also an application server (eg Tomcat) plus other stuff to program in Java.
+[http://www.devsniper.com/ubuntu-12-04-install-sun-jdk-6-7/ the guide I used in Doodle while in Ubuntu]
+
+## Tips
+- Collection to stream
+- Collections.unmodifiableList
+- System.out.printf("A string: %s will appear with a new line %n", "Hello World")
+
+https://www.geeksforgeeks.org/enum-in-java/
+
+-->
+
+
+## Resources
+- Effective Java
+- CTci
+- EPI
